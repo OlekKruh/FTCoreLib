@@ -1,0 +1,13 @@
+void	*ft_memset(void *dest, int ch, unsigned int len)
+{
+	unsigned char *ptr;
+	ptr = (unsigned char *) dest;
+
+	while(len > 0)
+	{
+		*ptr = ch;
+		ptr++;
+		len--;
+	}
+	return (dest);
+}
