@@ -1,5 +1,3 @@
-#include <unistd.h>
-
 int	ft_atoi(const char *src)
 {
 	int		id;

@@ -21,7 +21,9 @@ link_directories(/usr/local/opt/cunit/lib)
 
 add_library(ft_lib STATIC
         ft_atoi.c
-        ft_memset.c)
+        ft_memset.c
+        ft_bzero.c
+        ft_calloc.c)
 
 #target_link_libraries(ft_lib CUnit)
 

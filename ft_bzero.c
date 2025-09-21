@@ -1,3 +1,6 @@
-//
-// Created by Katarzyna Kępka  on 17/09/2025.
-//
+#include "ft_lib.h"
+
+void	ft_bzero(void *dest, size_t len)
+{
+	ft_memset(dest, 0, len);
+}

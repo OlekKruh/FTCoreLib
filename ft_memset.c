@@ -1,4 +1,6 @@
-void	*ft_memset(void *dest, int ch, unsigned int len)
+#include "ft_lib.h"
+
+void	*ft_memset(void *dest, int ch, size_t len)
 {
 	unsigned char *ptr;
 	ptr = (unsigned char *) dest;
