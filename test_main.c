@@ -1,6 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "ft_lib.h"
+#include "libft.h"
 
 void	test_ft_atoi(void);
 void	test_ft_memset_full(void);
@@ -17,7 +17,7 @@ int	main(void)
 {
 	CU_initialize_registry();
 
-	CU_pSuite suite = CU_add_suite("FT_Lib Testing", 0, 0);
+	CU_pSuite suite = CU_add_suite("LibFT Testing", 0, 0);
 	CU_add_test(suite, "Test ft_atoi", test_ft_atoi);
 	CU_add_test(suite, "Test ft_memset full", test_ft_memset_full);
 	CU_add_test(suite, "Test ft_memset partial", test_ft_memset_part);
