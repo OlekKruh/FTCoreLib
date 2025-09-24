@@ -2,8 +2,9 @@
 
 void	*ft_calloc(size_t quant, size_t len)
 {
-	void			*memo;
+	void	*memo;
 	size_t	size;
+
 	if(quant == 0 || len == 0)
 		return (NULL);
 

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 
 int		ft_atoi(const char *src);
+int		ft_strlen(const char *src);
+char	*ft_strdup(const char *src);
 void	ft_bzero(void *dest, size_t  len);
 void	*ft_calloc(size_t quant, size_t len);
 void	*ft_memset(void * dest, int ch, size_t len);

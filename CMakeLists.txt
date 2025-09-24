@@ -7,10 +7,12 @@ include_directories(/usr/local/opt/cunit/include)
 link_directories(/usr/local/opt/cunit/lib)
 
 add_library(libft STATIC
-        ft_atoi.c
-        ft_memset.c
-        ft_bzero.c
-        ft_calloc.c)
+		ft_atoi.c
+		ft_memset.c
+		ft_bzero.c
+		ft_calloc.c
+		ft_strdup.c
+		ft_strlen.c)
 
 add_executable(test_runner test_main.c)
 target_link_libraries(test_runner libft CUnit)
