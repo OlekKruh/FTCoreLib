@@ -12,7 +12,13 @@ add_library(libft STATIC
 		ft_bzero.c
 		ft_calloc.c
 		ft_strdup.c
-		ft_strlen.c)
+		ft_strlen.c
+		ft_isalpha.c
+		ft_isdigit.c
+		ft_isascii.c
+		ft_isprint.c
+		ft_isalnum.c
+		ft_memcpy.c)
 
 add_executable(test_runner test_main.c)
 target_link_libraries(test_runner libft CUnit)
