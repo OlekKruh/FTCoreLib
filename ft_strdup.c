@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 10:37:02 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/09/26 14:09:28 by okruhlia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strdup(const char *src) {
-	int id;
-	size_t len;
-	char *src_copy;
+char	*ft_strdup(const char *src)
+{
+	int		id;
+	size_t	len;
+	char	*src_copy;
 
 	id = 0;
 	len = ft_strlen(src);

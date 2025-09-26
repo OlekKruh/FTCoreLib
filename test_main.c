@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_main.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/09/26 11:38:22 by okruhlia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "libft.h"
@@ -19,6 +31,9 @@ void	test_ft_isascii(void);
 void	test_ft_isprint(void);
 void	test_ft_isalnum(void);
 void	test_ft_memcpy(void);
+void	test_memmove_no_overlap_zero_len(void);
+void	test_memmove_overlap_right_left(void);
+void	test_memmove_same_ptr(void);
 
 int		main(void)
 {
@@ -42,6 +57,9 @@ int		main(void)
 	CU_add_test(suite, "Test ft_isprint", test_ft_isprint);
 	CU_add_test(suite, "Test ft_isalnum", test_ft_isalnum);
 	CU_add_test(suite, "Test ft_memcpy", test_ft_memcpy);
+	CU_add_test(suite, "Test test_memmove_no_overlap_zero_len", test_memmove_no_overlap_zero_len);
+	CU_add_test(suite, "Test test_memmove_overlap_right_left", test_memmove_overlap_right_left);
+	CU_add_test(suite, "Test test_memmove_same_ptr", test_memmove_same_ptr);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
@@ -51,8 +69,9 @@ int		main(void)
 
 void	test_ft_atoi(void)
 {
-	char *overflow_str_1;
-	char *overflow_str_2;
+	char	*overflow_str_1;
+	char	*overflow_str_2;
+
 	overflow_str_1 = "-2147483649";
 	overflow_str_2 = "2147483648";
 	CU_ASSERT(ft_atoi("-123") == -123);
@@ -75,8 +94,8 @@ void	test_ft_atoi(void)
 
 void	test_ft_memset_variants(void)
 {
-	char buff1[10];
-	char buff2[10];
+	char	buff1[10];
+	char	buff2[10];
 
 	ft_memset(buff1, 'A', 10);
 	memset(buff2, 'A', 10);
@@ -334,4 +353,36 @@ void	test_ft_memcpy(void)
 	CU_ASSERT(memcmp(arr1, arr2, 5) == 0);
 
 	CU_ASSERT(ft_memcpy(dest, src, 5) == dest);
+}
+
+void	test_memmove_no_overlap_zero_len(void)
+{
+	char src[] = "1234567890";
+	char dest[20];
+	ft_memmove(dest, src, 11);
+	CU_ASSERT_EQUAL(memcmp(dest, src, 11), 0);
+
+	char buffer1[10] = "abcde";
+	char buffer2[10] = "abcde";
+	ft_memmove(buffer1, buffer2, 0);
+	CU_ASSERT_STRING_EQUAL(buffer1, buffer2);
+}
+
+void	test_memmove_overlap_right_left(void)
+{
+	char buffer1[20] = "Hello, World!";
+	ft_memmove(buffer1 + 7, buffer1, 6);
+	CU_ASSERT_NSTRING_EQUAL(buffer1 + 7, "Hello,", 6);
+
+	char buffer2[20] = "Hello, World!";
+	ft_memmove(buffer2, buffer2 + 7, 6);
+	CU_ASSERT_NSTRING_EQUAL(buffer2, "World!", 6);
+}
+
+void	test_memmove_same_ptr(void)
+{
+	char buf[10];
+	char src[] = "12345";
+	void* ret = ft_memmove(buf, src, 6);
+	CU_ASSERT_PTR_EQUAL(ret, buf);
 }

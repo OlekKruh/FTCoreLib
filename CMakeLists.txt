@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.30.5)
 project(libft C)
+find_package(Python3 3.11 REQUIRED COMPONENTS Interpreter)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -18,7 +19,8 @@ add_library(libft STATIC
 		ft_isascii.c
 		ft_isprint.c
 		ft_isalnum.c
-		ft_memcpy.c)
+		ft_memcpy.c
+		ft_memmove.c)
 
 add_executable(test_runner test_main.c)
 target_link_libraries(test_runner libft CUnit)

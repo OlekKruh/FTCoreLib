@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 20:38:56 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/09/26 13:54:41 by okruhlia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int	ft_isalpha(const int ch)
+int	ft_isalpha(const int arg)
 {
-	if (('a' <= ch &&  ch <= 'z') || ('A' <= ch && ch <= 'Z'))
+	if (('a' <= arg && arg <= 'z') || ('A' <= arg && arg <= 'Z'))
 		return (1);
 	return (0);
 }

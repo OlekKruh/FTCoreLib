@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 22:09:03 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/26 14:04:58 by okruhlia         ###   ########.fr       */
+/*   Created: 2025/09/26 10:11:01 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/09/26 14:07:59 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t len)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	size_t	id;
-
-	id = 0;
-	while (id < len)
+	if (!dest || !src)
+		return (NULL);
+	if (dest > src && (char *)src + len > (char *)dest)
 	{
-		((unsigned char *)dest)[id] = ((unsigned char *)src)[id];
-		id++;
+		while (len > 0)
+		{
+			len--;
+			((unsigned char *) dest)[len] = ((unsigned char *) src)[len];
+		}
 	}
-	return (dest);
+	else
+	{
+		return (ft_memcpy(dest, src, len));
+	}
+	return (0);
 }
