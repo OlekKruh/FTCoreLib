@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/26 11:38:22 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:59:19 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ void	test_ft_isascii(void);
 void	test_ft_isprint(void);
 void	test_ft_isalnum(void);
 void	test_ft_memcpy(void);
-void	test_memmove_no_overlap_zero_len(void);
-void	test_memmove_overlap_right_left(void);
-void	test_memmove_same_ptr(void);
+void	test_ft_memmove_no_overlap_zero_len(void);
+void	test_ft_memmove_overlap_right_left(void);
+void	test_ft_memmove_same_ptr(void);
+void	test_ft_strncpy_short_long_equal(void);
+void	test_ft_memchr_found_not_found(void);
+void	test_ft_memchr_zero_empty(void);
+void	test_ft_memcmp_equal_not_equal_zero(void);
+void	test_ft_memcmp_less_greater(void);
 
 int		main(void)
 {
@@ -57,9 +62,14 @@ int		main(void)
 	CU_add_test(suite, "Test ft_isprint", test_ft_isprint);
 	CU_add_test(suite, "Test ft_isalnum", test_ft_isalnum);
 	CU_add_test(suite, "Test ft_memcpy", test_ft_memcpy);
-	CU_add_test(suite, "Test test_memmove_no_overlap_zero_len", test_memmove_no_overlap_zero_len);
-	CU_add_test(suite, "Test test_memmove_overlap_right_left", test_memmove_overlap_right_left);
-	CU_add_test(suite, "Test test_memmove_same_ptr", test_memmove_same_ptr);
+	CU_add_test(suite, "Test test_ft_memmove_no_overlap_zero_len", test_ft_memmove_no_overlap_zero_len);
+	CU_add_test(suite, "Test test_ft_memmove_overlap_right_left", test_ft_memmove_overlap_right_left);
+	CU_add_test(suite, "Test test_ft_memmove_same_ptr", test_ft_memmove_same_ptr);
+	CU_add_test(suite, "Test test_ft_strncpy_short_long_equal", test_ft_strncpy_short_long_equal);
+	CU_add_test(suite, "Test test_ft_memchr_found_not_found", test_ft_memchr_found_not_found);
+	CU_add_test(suite, "Test test_ft_memchr_zero_empty", test_ft_memchr_zero_empty);
+	CU_add_test(suite, "Test test_ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
+	CU_add_test(suite, "Test test_ft_memcmp_less_greater", test_ft_memcmp_less_greater);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
@@ -355,7 +365,7 @@ void	test_ft_memcpy(void)
 	CU_ASSERT(ft_memcpy(dest, src, 5) == dest);
 }
 
-void	test_memmove_no_overlap_zero_len(void)
+void	test_ft_memmove_no_overlap_zero_len(void)
 {
 	char src[] = "1234567890";
 	char dest[20];
@@ -368,7 +378,7 @@ void	test_memmove_no_overlap_zero_len(void)
 	CU_ASSERT_STRING_EQUAL(buffer1, buffer2);
 }
 
-void	test_memmove_overlap_right_left(void)
+void	test_ft_memmove_overlap_right_left(void)
 {
 	char buffer1[20] = "Hello, World!";
 	ft_memmove(buffer1 + 7, buffer1, 6);
@@ -379,10 +389,99 @@ void	test_memmove_overlap_right_left(void)
 	CU_ASSERT_NSTRING_EQUAL(buffer2, "World!", 6);
 }
 
-void	test_memmove_same_ptr(void)
+void	test_ft_memmove_same_ptr(void)
 {
 	char buf[10];
 	char src[] = "12345";
 	void* ret = ft_memmove(buf, src, 6);
 	CU_ASSERT_PTR_EQUAL(ret, buf);
+}
+
+void	test_ft_strncpy_short_long_equal(void)
+{
+	char	dest1[10];
+	char	src1[] = "kapibara";
+
+	memset(dest1, 'S', sizeof(dest1));
+	ft_strncpy(dest1, src1, sizeof(dest1));
+
+	CU_ASSERT_NSTRING_EQUAL(dest1, src1, strlen(src1));
+	for (size_t id = strlen(src1); id < sizeof(dest1); id++)
+	{
+		CU_ASSERT(dest1[id] == '\0');
+	}
+
+	char dest2[10];
+	char src2[] = "this is a longer string";
+
+	memset(dest2, 'L', sizeof(dest2));
+	ft_strncpy(dest2, src2, sizeof(dest2));
+
+	CU_ASSERT_NSTRING_EQUAL(dest2, src2, sizeof(dest2));
+
+	char dest3[10];
+	char src3[] = "abcdefghij";
+
+	memset(dest3, 'E', sizeof(dest3));
+	ft_strncpy(dest3, src3, sizeof(dest3));
+
+	CU_ASSERT_NSTRING_EQUAL(dest3, src3, sizeof(dest3));
+}
+
+void	test_ft_memchr_found_not_found(void)
+{
+	char str[] = "Hello World!";
+	char ch1 = 'o';
+	char ch2 = 'x';
+	char ch3 = 'e';
+	char ch4 = '!';
+
+	char *res1 = ft_memchr(str, ch1, sizeof(str));
+	CU_ASSERT_PTR_NOT_NULL(res1);
+	CU_ASSERT_EQUAL(*res1, ch1);
+	CU_ASSERT_PTR_EQUAL(res1, &str[4]);
+
+	char *res4 = ft_memchr(str, ch4, sizeof(str));
+	CU_ASSERT_PTR_NOT_NULL(res4);
+	CU_ASSERT_EQUAL(*res4, ch4);
+	CU_ASSERT_PTR_EQUAL(res4, &str[11]);
+
+	char *res2 = ft_memchr(str, ch2, sizeof(str));
+	CU_ASSERT_PTR_NULL(res2);
+
+	char *res3 = ft_memchr(str, ch3, 0);
+	CU_ASSERT_PTR_NULL(res3);
+}
+
+void	test_ft_memchr_zero_empty(void)
+{
+	char str1[] = "Hello World!";
+	char str2[] = "";
+	char ch1 = 'o';
+	char ch2 = 'x';
+
+	char *res1 = ft_memchr(str1, ch1, 0);
+	CU_ASSERT_PTR_NULL(res1);
+
+	char *res2 = ft_memchr(str2, ch2, sizeof(str2));
+	CU_ASSERT_PTR_NULL(res2);
+}
+
+void	test_ft_memcmp_equal_not_equal_zero(void)
+{
+	char str1[] = "hello world";
+	char str2[] = "hello there";
+	CU_ASSERT_EQUAL(ft_memcmp(str1, str2, 5), 0);
+	CU_ASSERT_TRUE(ft_memcmp(str1, str2, 6) != 0);
+	CU_ASSERT_EQUAL(ft_memcmp(str1, str2, 0), 0);
+}
+
+void	test_ft_memcmp_less_greater(void)
+{
+	char str1[] = "heLlo";
+	char str2[] = "hello";
+	char str3[] = "helLo";
+
+	CU_ASSERT_TRUE(ft_memcmp(str1, str2, 5) < 0);
+	CU_ASSERT_TRUE(ft_memcmp(str2, str3, 6) > 0);
 }
