@@ -27,7 +27,12 @@ add_library(libft STATIC
 		ft_memmove.c
 		ft_strncpy.c
 		ft_memchr.c
-		ft_memcmp.c)
+		ft_memcmp.c
+		ft_strnstr.c
+		ft_strrchr.c
+		ft_strchr.c
+		ft_tolower.c
+		ft_toupper.c)
 
 add_executable(test_runner test_main.c)
 target_link_libraries(test_runner libft CUnit)

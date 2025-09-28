@@ -39,6 +39,11 @@ void	test_ft_memchr_found_not_found(void);
 void	test_ft_memchr_zero_empty(void);
 void	test_ft_memcmp_equal_not_equal_zero(void);
 void	test_ft_memcmp_less_greater(void);
+void	test_ft_strnstr(void);
+void	test_ft_strrchr(void);
+void	test_ft_strchr(void);
+void	test_ft_tolower_various();
+void	test_ft_toupper_various();
 
 int		main(void)
 {
@@ -70,6 +75,11 @@ int		main(void)
 	CU_add_test(suite, "Test test_ft_memchr_zero_empty", test_ft_memchr_zero_empty);
 	CU_add_test(suite, "Test test_ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
 	CU_add_test(suite, "Test test_ft_memcmp_less_greater", test_ft_memcmp_less_greater);
+	CU_add_test(suite, "Test test_ft_strnstr", test_ft_strnstr);
+	CU_add_test(suite, "Test test_ft_strrchr", test_ft_strrchr);
+	CU_add_test(suite, "Test test_ft_strchr", test_ft_strchr);
+	CU_add_test(suite, "Test test_ft_tolower_various", test_ft_tolower_various);
+	CU_add_test(suite, "Test test_ft_toupper_various", test_ft_toupper_various);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
@@ -484,4 +494,182 @@ void	test_ft_memcmp_less_greater(void)
 
 	CU_ASSERT_TRUE(ft_memcmp(str1, str2, 5) < 0);
 	CU_ASSERT_TRUE(ft_memcmp(str2, str3, 6) > 0);
+}
+
+void	test_ft_strnstr(void)
+{
+	char *text = "To be, or not to be, that is the question:";
+	char *needles[] = {
+			"",
+			"To be",
+			" To be",
+			"not to be",
+			"question:",
+			"question: ",
+			"?",
+	};
+	char *expected[] = {
+			text,
+			text,
+			NULL,
+			text + 10,
+			text + 33,
+			NULL,
+			NULL,
+	};
+
+	size_t count = sizeof(needles) / sizeof(needles[0]);
+	size_t len = strlen(text);
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res0_0 = strnstr(text, needles[i], len);
+		CU_ASSERT_PTR_EQUAL(res0_0, expected[i]);
+	}
+
+	char *res0_1 = strnstr(text, needles[1], 0);
+	CU_ASSERT_PTR_NULL(res0_1);
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res1_0 = ft_strnstr(text, needles[i], len);
+		CU_ASSERT_PTR_EQUAL(res1_0, expected[i]);
+	}
+
+	char *res1_1 = ft_strnstr(text, needles[1], 0);
+	CU_ASSERT_PTR_NULL(res1_1);
+}
+
+void	test_ft_strrchr(void)
+{
+	char *text = "My name is Sherlock Holmes. It is my business to know what other people do not know.";
+	int needles[] = {
+			'\0',
+			'.',
+			'w',
+			'I',
+			'H',
+			'M',
+	};
+	char *expected[] = {
+			text + 84,
+			text + 83,
+			text + 82,
+			text + 28,
+			text + 20,
+			text,
+	};
+
+	size_t count = sizeof(needles) / sizeof(needles[0]);
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res0_0 = strrchr(text, needles[i]);
+		CU_ASSERT_PTR_EQUAL(res0_0, expected[i]);
+	}
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res1_0 = ft_strrchr(text, needles[i]);
+		CU_ASSERT_PTR_EQUAL(res1_0, expected[i]);
+	}
+}
+
+void	test_ft_strchr(void)
+{
+	char *text = "Curiouser and curiouser!";
+	int needles[] = {
+			'\0',
+			'u',
+			'r',
+			'!',
+			'c',
+			};
+	char *expected[] = {
+			text + 24,
+			text + 1,
+			text + 2,
+			text + 23,
+			text + 14,
+			};
+
+	size_t count = sizeof(needles) / sizeof(needles[0]);
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res0_0 = strchr(text, needles[i]);
+		CU_ASSERT_PTR_EQUAL(res0_0, expected[i]);
+	}
+
+	for (size_t i = 0; i < count; i++)
+	{
+		char *res1_0 = ft_strchr(text, needles[i]);
+		CU_ASSERT_PTR_EQUAL(res1_0, expected[i]);
+	}
+}
+
+void	test_ft_tolower_various()
+{
+	char inputs[] = {
+			'A',
+			'Z',
+			'M',
+			'a',
+			'z',
+			'm',
+			'!',
+			'0',
+			' '
+	};
+	char expected[] = {
+			'a',
+			'z',
+			'm',
+			'a',
+			'z',
+			'm',
+			'!',
+			'0',
+			' '
+	};
+	int count = sizeof(inputs) / sizeof(inputs[0]);
+
+	for (int i = 0; i < count; i++)
+	{
+		char res = ft_tolower(inputs[i]);
+		CU_ASSERT_EQUAL(res, expected[i]);
+	}
+}
+
+void	test_ft_toupper_various()
+{
+	char inputs[] = {
+			'a',
+			'z',
+			'm',
+			'A',
+			'Z',
+			'M',
+			'!',
+			'0',
+			' '
+	};
+	char expected[] = {
+			'A',
+			'Z',
+			'M',
+			'A',
+			'Z',
+			'M',
+			'!',
+			'0',
+			' '
+	};
+	int count = sizeof(inputs) / sizeof(inputs[0]);
+
+	for (int i = 0; i < count; i++)
+	{
+		char res = ft_toupper(inputs[i]);
+		CU_ASSERT_EQUAL(res, expected[i]);
+	}
 }
