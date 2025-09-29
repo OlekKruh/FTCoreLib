@@ -1,0 +1,266 @@
+//void	test_ft_tolower()
+//{
+//	char inputs[] = {
+//			'A',
+//			'Z',
+//			'M',
+//			'a',
+//			'z',
+//			'm',
+//			'!',
+//			'0',
+//			' '
+//	};
+//	char expected[] = {
+//			'a',
+//			'z',
+//			'm',
+//			'a',
+//			'z',
+//			'm',
+//			'!',
+//			'0',
+//			' '
+//	};
+//	int count = sizeof(inputs) / sizeof(inputs[0]);
+//
+//	for (int i = 0; i < count; i++)
+//	{
+//		char res = ft_tolower(inputs[i]);
+//		CU_ASSERT_EQUAL(res, expected[i]);
+//	}
+//}
+
+//void	test_ft_toupper()
+//{
+//	char inputs[] = {
+//			'a',
+//			'z',
+//			'm',
+//			'A',
+//			'Z',
+//			'M',
+//			'!',
+//			'0',
+//			' '
+//	};
+//	char expected[] = {
+//			'A',
+//			'Z',
+//			'M',
+//			'A',
+//			'Z',
+//			'M',
+//			'!',
+//			'0',
+//			' '
+//	};
+//	int count = sizeof(inputs) / sizeof(inputs[0]);
+//
+//	for (int i = 0; i < count; i++)
+//	{
+//		char res = ft_toupper(inputs[i]);
+//		CU_ASSERT_EQUAL(res, expected[i]);
+//	}
+//}
+
+void	test_ft_isalpha(void)
+{
+	CU_ASSERT(ft_isalpha('a') == 1);
+	CU_ASSERT(ft_isalpha('z') == 1);
+	CU_ASSERT(ft_isalpha('A') == 1);
+	CU_ASSERT(ft_isalpha('Z') == 1);
+
+	CU_ASSERT(ft_isalpha('m') == 1);
+	CU_ASSERT(ft_isalpha('M') == 1);
+
+	CU_ASSERT(ft_isalpha('0') == 0);
+	CU_ASSERT(ft_isalpha('9') == 0);
+	CU_ASSERT(ft_isalpha(' ') == 0);
+	CU_ASSERT(ft_isalpha('\n') == 0);
+	CU_ASSERT(ft_isalpha('!') == 0);
+
+	CU_ASSERT(ft_isalpha('`') == 0);
+	CU_ASSERT(ft_isalpha('{') == 0);
+	CU_ASSERT(ft_isalpha('@') == 0);
+	CU_ASSERT(ft_isalpha('[') == 0);
+
+	CU_ASSERT(ft_isalpha(-1) == 0);
+	CU_ASSERT(ft_isalpha(128) == 0);
+}
+
+void	test_ft_isdigit(void)
+{
+	CU_ASSERT(ft_isdigit('0') == 1);
+	CU_ASSERT(ft_isdigit('5') == 1);
+	CU_ASSERT(ft_isdigit('9') == 1);
+
+	CU_ASSERT(ft_isdigit('a') == 0);
+	CU_ASSERT(ft_isdigit('Z') == 0);
+	CU_ASSERT(ft_isdigit(' ') == 0);
+	CU_ASSERT(ft_isdigit('\n') == 0);
+	CU_ASSERT(ft_isdigit('/') == 0);
+
+	CU_ASSERT(ft_isdigit(-1) == 0);
+	CU_ASSERT(ft_isdigit(128) == 0);
+}
+
+void	test_ft_isascii(void)
+{
+	CU_ASSERT(ft_isascii('0') == 1);
+	CU_ASSERT(ft_isascii('9') == 1);
+
+	CU_ASSERT(ft_isascii('A') == 1);
+	CU_ASSERT(ft_isascii('Z') == 1);
+
+	CU_ASSERT(ft_isascii('a') == 1);
+	CU_ASSERT(ft_isascii('z') == 1);
+
+	CU_ASSERT(ft_isascii(' ') == 1);
+	CU_ASSERT(ft_isascii('!') == 1);
+	CU_ASSERT(ft_isascii('\n') == 1);
+	CU_ASSERT(ft_isascii('\t') == 1);
+
+	CU_ASSERT(ft_isascii(0) == 1);
+	CU_ASSERT(ft_isascii(127) == 1);
+
+	CU_ASSERT(ft_isascii(-1) == 0);
+	CU_ASSERT(ft_isascii(128) == 0);
+	CU_ASSERT(ft_isascii(255) == 0);
+}
+
+void	test_ft_isprint(void)
+{
+	CU_ASSERT(ft_isprint(' ') == 1);
+	CU_ASSERT(ft_isprint('!') == 1);
+	CU_ASSERT(ft_isprint('+') == 1);
+	CU_ASSERT(ft_isprint('.') == 1);
+	CU_ASSERT(ft_isprint('/') == 1);
+	CU_ASSERT(ft_isprint(':') == 1);
+	CU_ASSERT(ft_isprint('@') == 1);
+	CU_ASSERT(ft_isprint('~') == 1);
+
+	CU_ASSERT(ft_isprint('0') == 1);
+	CU_ASSERT(ft_isprint('9') == 1);
+	CU_ASSERT(ft_isprint('A') == 1);
+	CU_ASSERT(ft_isprint('Z') == 1);
+	CU_ASSERT(ft_isprint('a') == 1);
+	CU_ASSERT(ft_isprint('z') == 1);
+
+	CU_ASSERT(ft_isprint('\0') == 0);
+	CU_ASSERT(ft_isprint('\t') == 0);
+	CU_ASSERT(ft_isprint('\n') == 0);
+	CU_ASSERT(ft_isprint('\x1b') == 0);
+	CU_ASSERT(ft_isprint(-1) == 0)
+}
+
+void	test_ft_isalnum(void)
+{
+	CU_ASSERT(ft_isalnum('0') == 1);
+	CU_ASSERT(ft_isalnum('5') == 1);
+	CU_ASSERT(ft_isalnum('9') == 1);
+
+	CU_ASSERT(ft_isalnum('A') == 1);
+	CU_ASSERT(ft_isalnum('M') == 1);
+	CU_ASSERT(ft_isalnum('Z') == 1);
+	CU_ASSERT(ft_isalnum('a') == 1);
+	CU_ASSERT(ft_isalnum('m') == 1);
+	CU_ASSERT(ft_isalnum('z') == 1);
+
+	CU_ASSERT(ft_isalnum(' ') == 0);
+	CU_ASSERT(ft_isalnum('!') == 0);
+	CU_ASSERT(ft_isalnum('@') == 0);
+	CU_ASSERT(ft_isalnum('\n') == 0);
+	CU_ASSERT(ft_isalnum(-1) == 0);
+	CU_ASSERT(ft_isalnum(128) == 0);
+}
+
+void	test_ft_memcpy(void)
+{
+	char src[] = "Hello, World!";
+	char dest[20];
+	char dest_std[20];
+
+	ft_memcpy(dest, src, strlen(src) + 1);
+	memcpy(dest_std, src, strlen(src) + 1);
+	CU_ASSERT(memcmp(dest, dest_std, strlen(src) + 1) == 0);
+
+	ft_memcpy(dest, src, 5);
+	memcpy(dest_std, src, 5);
+	CU_ASSERT(memcmp(dest, dest_std, 5) == 0);
+
+	ft_memcpy(dest, src, 0);
+	memcpy(dest_std, src, 0);
+	CU_ASSERT(memcmp(dest, dest_std, strlen(src) + 1) == 0);
+
+	unsigned char arr1[] = {1, 2, 3, 4, 5};
+	unsigned char arr2[5];
+	ft_memcpy(arr2, arr1, 5);
+	CU_ASSERT(memcmp(arr1, arr2, 5) == 0);
+
+	CU_ASSERT(ft_memcpy(dest, src, 5) == dest);
+}
+
+void	test_ft_memset_variants(void)
+{
+	char	buff1[10];
+	char	buff2[10];
+
+	ft_memset(buff1, 'A', 10);
+	memset(buff2, 'A', 10);
+
+	CU_ASSERT_NSTRING_EQUAL(buff1, buff2, 10);
+
+	ft_memset(buff1, 'B', 5);
+	memset(buff2, 'B', 5);
+
+	CU_ASSERT_NSTRING_EQUAL(buff1, buff2, 10);
+
+	memset(buff1, 'Q', 10);
+	memset(buff2, 'Q', 10);
+
+	ft_memset(buff1, 'A', 0);
+	memset(buff2, 'A', 0);
+
+	CU_ASSERT_NSTRING_EQUAL(buff1, buff2, 10);
+}
+
+void	test_ft_memset_same_ptr(void)
+{
+	char buff[5];
+	char *ptr = buff;
+
+	CU_ASSERT_PTR_EQUAL(ft_memset(buff, 'B', 5), ptr);
+}
+
+void	test_ft_memmove_no_overlap_zero_len(void)
+{
+	char src[] = "1234567890";
+	char dest[20];
+	ft_memmove(dest, src, 11);
+	CU_ASSERT_EQUAL(memcmp(dest, src, 11), 0);
+
+	char buffer1[10] = "abcde";
+	char buffer2[10] = "abcde";
+	ft_memmove(buffer1, buffer2, 0);
+	CU_ASSERT_STRING_EQUAL(buffer1, buffer2);
+}
+
+void	test_ft_memmove_overlap_right_left(void)
+{
+	char buffer1[20] = "Hello, World!";
+	ft_memmove(buffer1 + 7, buffer1, 6);
+	CU_ASSERT_NSTRING_EQUAL(buffer1 + 7, "Hello,", 6);
+
+	char buffer2[20] = "Hello, World!";
+	ft_memmove(buffer2, buffer2 + 7, 6);
+	CU_ASSERT_NSTRING_EQUAL(buffer2, "World!", 6);
+}
+
+void	test_ft_memmove_same_ptr(void)
+{
+	char buf[10];
+	char src[] = "12345";
+	void* ret = ft_memmove(buf, src, 6);
+	CU_ASSERT_PTR_EQUAL(ret, buf);
+}

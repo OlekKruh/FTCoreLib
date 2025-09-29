@@ -15,6 +15,8 @@
 
 # include <string.h>
 # include <stdlib.h>
+# include <limits.h>
+# include <stdint.h>
 
 int		ft_atoi(const char *src);
 int		ft_strlen(const char *src);
@@ -31,6 +33,8 @@ char	*ft_strncpy(char *dest, const char *src, size_t len);
 char	*ft_strnstr(const char *str, const char *substr, size_t len);
 char	*ft_strrchr(const char *str, int ch);
 char	*ft_strchr(const char *str, int ch);
+size_t	ft_strlcat(char *dst, const char *src, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_bzero(void *dest, size_t len);
 void	*ft_calloc(size_t quant, size_t len);
 void	*ft_memset(void *dest, int ch, size_t len);

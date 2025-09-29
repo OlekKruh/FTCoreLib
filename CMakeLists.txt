@@ -32,7 +32,9 @@ add_library(libft STATIC
 		ft_strrchr.c
 		ft_strchr.c
 		ft_tolower.c
-		ft_toupper.c)
+		ft_toupper.c
+		ft_strlcat.c
+		ft_strlcpy.c)
 
 add_executable(test_runner test_main.c)
 target_link_libraries(test_runner libft CUnit)
