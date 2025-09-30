@@ -6,43 +6,13 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/28 18:40:48 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/09/30 21:25:27 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "libft.h"
-
-void	test_ft_atoi(void);
-void	test_ft_memset(void);
-void	test_ft_bzero(void);
-void	test_ft_calloc_full(void);
-void	test_ft_calloc_zero(void);
-void	test_ft_calloc_overflow(void);
-void	test_ft_strlen(void);
-void	test_ft_strdup_copy_and_not_null(void);
-void	test_ft_strdup_different_pointer(void);
-void	test_ft_strdup_empty_string(void);
-void	test_ft_isalpha(void);
-void	test_ft_isdigit(void);
-void	test_ft_isascii(void);
-void	test_ft_isprint(void);
-void	test_ft_isalnum(void);
-void	test_ft_memcpy(void);
-void	test_ft_memmove(void);
-void	test_ft_strncpy_short_long_equal(void);
-void	test_ft_memchr_found_not_found(void);
-void	test_ft_memchr_zero_empty(void);
-void	test_ft_memcmp_equal_not_equal_zero(void);
-void	test_ft_memcmp_less_greater(void);
-void	test_ft_strnstr(void);
-void	test_ft_strrchr(void);
-void	test_ft_strchr(void);
-void	test_ft_tolower(void);
-void	test_ft_toupper(void);
-void	test_ft_strlcat(void);
-void	test_ft_strlcpy(void);
 
 typedef struct
 {
@@ -97,47 +67,21 @@ typedef struct
 	char expected[30];
 }
 test_case_memmove;
-
-int		main(void)
+typedef struct
 {
-	CU_initialize_registry();
-
-	CU_pSuite suite = CU_add_suite("LibFT Testing", 0, 0);
-	CU_add_test(suite, "ft_atoi", test_ft_atoi);
-	CU_add_test(suite, "ft_memset full", test_ft_memset);
-	CU_add_test(suite, "ft_bzero full", test_ft_bzero);
-	CU_add_test(suite, "ft_calloc full", test_ft_calloc_full);
-	CU_add_test(suite, "ft_calloc return zero", test_ft_calloc_zero);
-	CU_add_test(suite, "ft_calloc overflow", test_ft_calloc_overflow);
-	CU_add_test(suite, "ft_strlen", test_ft_strlen);
-	CU_add_test(suite, "ft_strdup_copy_and_not_null", test_ft_strdup_copy_and_not_null);
-	CU_add_test(suite, "ft_strdup_different_pointer", test_ft_strdup_different_pointer);
-	CU_add_test(suite, "ft_strdup_empty_string", test_ft_strdup_empty_string);
-	CU_add_test(suite, "ft_isalpha", test_ft_isalpha);
-	CU_add_test(suite, "ft_isdigit", test_ft_isdigit);
-	CU_add_test(suite, "ft_isascii", test_ft_isascii);
-	CU_add_test(suite, "ft_isprint", test_ft_isprint);
-	CU_add_test(suite, "ft_isalnum", test_ft_isalnum);
-	CU_add_test(suite, "ft_memcpy", test_ft_memcpy);
-	CU_add_test(suite, "ft_memmove", test_ft_memmove);
-	CU_add_test(suite, "ft_strncpy_short_long_equal", test_ft_strncpy_short_long_equal);
-	CU_add_test(suite, "ft_memchr_found_not_found", test_ft_memchr_found_not_found);
-	CU_add_test(suite, "ft_memchr_zero_empty", test_ft_memchr_zero_empty);
-	CU_add_test(suite, "ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
-	CU_add_test(suite, "ft_memcmp_less_greater", test_ft_memcmp_less_greater);
-	CU_add_test(suite, "ft_strnstr", test_ft_strnstr);
-	CU_add_test(suite, "ft_strrchr", test_ft_strrchr);
-	CU_add_test(suite, "ft_strchr", test_ft_strchr);
-	CU_add_test(suite, "ft_tolower", test_ft_tolower);
-	CU_add_test(suite, "ft_toupper", test_ft_toupper);
-	CU_add_test(suite, "ft_strlcat", test_ft_strlcat);
-	CU_add_test(suite, "ft_strlcpy_cases", test_ft_strlcpy);
-
-	CU_basic_set_mode(CU_BRM_VERBOSE);
-	CU_basic_run_tests();
-	CU_cleanup_registry();
-	return (0);
+	const char *src;
+	unsigned int start;
+	size_t len;
+	const char *expected;
 }
+test_case_ft_substr;
+typedef struct
+{
+	const char *s1;
+	const char *s2;
+	const char *expected;
+}
+test_case_strjoin;
 
 void	test_ft_atoi(void)
 {
@@ -168,10 +112,10 @@ void	test_ft_memset(void)
 {
 	test_case_memset cases[] =
 			{
-			{"abcdefghij", 'A', 5, "AAAAAfghij"},
-			{"1234567890", '0', 10, "0000000000"},
-			{"", 'X', 0, ""},
-			{"Test", '!', 2, "!!st"}
+					{"abcdefghij", 'A', 5, "AAAAAfghij"},
+					{"1234567890", '0', 10, "0000000000"},
+					{"", 'X', 0, ""},
+					{"Test", '!', 2, "!!st"}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
@@ -281,87 +225,87 @@ void	test_ft_isalpha(void)
 {
 	test_case_int cases[] =
 			{
-			{'a', 1}, {'z', 1}, {'A', 1},
-			{'Z', 1}, {'m', 1}, {'M', 1},
-			{'0', 0}, {'9', 0}, {' ', 0},
-			{'\n', 0}, {'!', 0}, {'`', 0},
-			{'{', 0}, {'@', 0}, {'[', 0},
-			{-1, 0}, {128, 0}
+					{'a', 1}, {'z', 1}, {'A', 1},
+					{'Z', 1}, {'m', 1}, {'M', 1},
+					{'0', 0}, {'9', 0}, {' ', 0},
+					{'\n', 0}, {'!', 0}, {'`', 0},
+					{'{', 0}, {'@', 0}, {'[', 0},
+					{-1, 0}, {128, 0}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_isalpha(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_isalpha(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_isdigit(void)
 {
 	test_case_int cases[] =
 			{
-			{'0', 1}, {'5', 1}, {'9', 1},
-			{'a', 0}, {'Z', 0}, {' ', 0},
-			{'\n', 0}, {'/', 0},	{-1, 0},
-			{128, 0}
+					{'0', 1}, {'5', 1}, {'9', 1},
+					{'a', 0}, {'Z', 0}, {' ', 0},
+					{'\n', 0}, {'/', 0},	{-1, 0},
+					{128, 0}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_isdigit(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_isdigit(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_isascii(void)
 {
 	test_case_int cases[] =
 			{
-			{'0', 1}, {'9', 1}, {'A', 1},
-			{'Z', 1}, {'a', 1}, {'z', 1},
-			{' ', 1}, {'!', 1}, {'\n', 1},
-			{'\t', 1}, {0, 1}, {127, 1},
-			{-1, 0}, {128, 0}, {255, 0}
+					{'0', 1}, {'9', 1}, {'A', 1},
+					{'Z', 1}, {'a', 1}, {'z', 1},
+					{' ', 1}, {'!', 1}, {'\n', 1},
+					{'\t', 1}, {0, 1}, {127, 1},
+					{-1, 0}, {128, 0}, {255, 0}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_isascii(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_isascii(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_isprint(void)
 {
 	test_case_int cases[] =
 			{
-			{' ', 1}, {'!', 1}, {'+', 1},
-			{'.', 1}, {'/', 1}, {':', 1},
-			{'@', 1}, {'~', 1}, {'0', 1},
-			{'9', 1}, {'A', 1}, {'Z', 1},
-			{'a', 1}, {'z', 1}, {'\0', 0},
-			{'\t', 0}, {'\n', 0}, {27, 0},
-			{-1, 0}
+					{' ', 1}, {'!', 1}, {'+', 1},
+					{'.', 1}, {'/', 1}, {':', 1},
+					{'@', 1}, {'~', 1}, {'0', 1},
+					{'9', 1}, {'A', 1}, {'Z', 1},
+					{'a', 1}, {'z', 1}, {'\0', 0},
+					{'\t', 0}, {'\n', 0}, {27, 0},
+					{-1, 0}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_isprint(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_isprint(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_isalnum(void)
 {
 	test_case_int cases[] =
 			{
-			{'0', 1}, {'5', 1}, {'9', 1},
-			{'A', 1}, {'M', 1}, {'Z', 1},
-			{'a', 1}, {'m', 1}, {'z', 1},
-			{' ', 0}, {'!', 0}, {'@', 0},
-			{'\n', 0}, {-1, 0}, {128, 0}
+					{'0', 1}, {'5', 1}, {'9', 1},
+					{'A', 1}, {'M', 1}, {'Z', 1},
+					{'a', 1}, {'m', 1}, {'z', 1},
+					{' ', 0}, {'!', 0}, {'@', 0},
+					{'\n', 0}, {-1, 0}, {128, 0}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_isalnum(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_isalnum(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_memcpy(void)
 {
 	test_case_memcpy cases[] =
 			{
-			{"Hello, World!", 14},
-			{"1234567890", 5},
-			{"test", 0},
-			{"abcdefghij", 10}
+					{"Hello, World!", 14},
+					{"1234567890", 5},
+					{"test", 0},
+					{"abcdefghij", 10}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
@@ -376,10 +320,10 @@ void	test_ft_memmove(void)
 {
 	test_case_memmove cases[] =
 			{
-			{"Hello, World!", 0, 7, 6, "Hello, Hello,"},
-			{"1234567890", 2, 5, 3, "1234534590"},
-			{"abcdefghij", 0, 0, 5, "abcdefghij"},
-			{"OverlapTest", 0, 3, 5, "OveOverlest"}
+					{"Hello, World!", 0, 7, 6, "Hello, Hello,"},
+					{"1234567890", 2, 5, 3, "1234534590"},
+					{"abcdefghij", 0, 0, 5, "abcdefghij"},
+					{"OverlapTest", 0, 3, 5, "OveOverlest"}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
@@ -568,14 +512,14 @@ void	test_ft_strchr(void)
 			'r',
 			'!',
 			'c',
-			};
+	};
 	char *expected[] = {
 			text + 24,
 			text + 1,
 			text + 2,
 			text + 23,
 			text + 14,
-			};
+	};
 
 	size_t count = sizeof(needles) / sizeof(needles[0]);
 
@@ -596,49 +540,49 @@ void	test_ft_tolower(void)
 {
 	test_case_char cases[] =
 			{
-			{'A', 'a'},
-			{'Z', 'z'},
-			{'M', 'm'},
-			{'a', 'a'},
-			{'z', 'z'},
-			{'m', 'm'},
-			{'!', '!'},
-			{'0', '0'},
-			{' ', ' '}
+					{'A', 'a'},
+					{'Z', 'z'},
+					{'M', 'm'},
+					{'a', 'a'},
+					{'z', 'z'},
+					{'m', 'm'},
+					{'!', '!'},
+					{'0', '0'},
+					{' ', ' '}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_tolower(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_tolower(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_toupper(void)
 {
 	test_case_char cases[] =
 			{
-			{'a', 'A'},
-			{'z', 'Z'},
-			{'m', 'M'},
-			{'A', 'A'},
-			{'Z', 'Z'},
-			{'M', 'M'},
-			{'!', '!'},
-			{'0', '0'},
-			{' ', ' '}
+					{'a', 'A'},
+					{'z', 'Z'},
+					{'m', 'M'},
+					{'A', 'A'},
+					{'Z', 'Z'},
+					{'M', 'M'},
+					{'!', '!'},
+					{'0', '0'},
+					{' ', ' '}
 			};
 	int count = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < count; i++)
-		CU_ASSERT_EQUAL(ft_toupper(cases[i].input), cases[i].expected);
+	CU_ASSERT_EQUAL(ft_toupper(cases[i].input), cases[i].expected);
 }
 
 void	test_ft_strlcat(void)
 {
 	test_case_strlcat tests[] =
 			{
-			{"Hello, ", "world!", 50, "Hello, world!", strlen("Hello, ") + strlen("world!")},
-			{"Hello",   "World",  0,  "Hello",         0 + strlen("World")},
-			{"Hello",   "World",  7,  "HelloW",        strlen("Hello") + strlen("World")},
-			{"Hello",   " World", 12, "Hello World",   strlen("Hello") + strlen(" World")},
-			{"Hello",   "World",  3,  "Hello",         3 + strlen("World")}
+					{"Hello, ", "world!", 50, "Hello, world!", strlen("Hello, ") + strlen("world!")},
+					{"Hello",   "World",  0,  "Hello",         0 + strlen("World")},
+					{"Hello",   "World",  7,  "HelloW",        strlen("Hello") + strlen("World")},
+					{"Hello",   " World", 12, "Hello World",   strlen("Hello") + strlen(" World")},
+					{"Hello",   "World",  3,  "Hello",         3 + strlen("World")}
 			};
 
 	int num_tests = sizeof(tests) / sizeof(tests[0]);
@@ -656,12 +600,12 @@ void	test_ft_strlcpy(void)
 {
 	test_case_strlcpy cases[] =
 			{
-			{"", "HelloWorld", 15, "HelloWorld", strlen("HelloWorld")},
-			{"Example", "Test", 10, "Test", strlen("Test")},
-			{"Hello", "Hi", 5, "Hi", strlen("Hi")},
-			{"NoChange", "NoCopy", 0, "NoChange", strlen("NoCopy")},
-			{"Test", "LongString", 5, "Long", strlen("LongString")},
-	};
+					{"", "HelloWorld", 15, "HelloWorld", strlen("HelloWorld")},
+					{"Example", "Test", 10, "Test", strlen("Test")},
+					{"Hello", "Hi", 5, "Hi", strlen("Hi")},
+					{"NoChange", "NoCopy", 0, "NoChange", strlen("NoCopy")},
+					{"Test", "LongString", 5, "Long", strlen("LongString")},
+			};
 	int n = sizeof(cases) / sizeof(cases[0]);
 	for (int i = 0; i < n; i++) {
 		char buffer[50];
@@ -670,4 +614,102 @@ void	test_ft_strlcpy(void)
 		CU_ASSERT_STRING_EQUAL(buffer, cases[i].expected);
 		CU_ASSERT_EQUAL(ret, cases[i].expected_ret);
 	}
+}
+
+void	test_ft_substr(void)
+{
+	test_case_ft_substr tests[] =
+			{
+					{NULL, 0, 10, NULL},
+					{"Hello", 10, 3, ""},
+					{"Hello", 1, 0, ""},
+					{"Hello", 1, 2, "el"},
+					{"Hello", 3, 10, "lo"},
+					{"Hello", 0, 5, "Hello"},
+					{NULL, 0, 0, NULL},
+			};
+	for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++) {
+		char *res = ft_substr(tests[i].src, tests[i].start, tests[i].len);
+		if (tests[i].expected == NULL) {
+			CU_ASSERT_PTR_NULL(res);
+		} else {
+			CU_ASSERT_STRING_EQUAL(res, tests[i].expected);
+			free(res);
+		}
+	}
+}
+
+void	test_ft_strjoin(void)
+{
+	test_case_strjoin tests[] =
+			{
+					{ "Hello, ", "world!", "Hello, world!" },
+					{"Ababa", "galamaga", "Ababagalamaga"},
+					{ NULL, "world!", "world!" },
+					{ "Hello, ", NULL, "Hello, " },
+					{ NULL, NULL, NULL },
+					{ "", "Banana", "Banana" },
+					{ "Apple", "", "Apple" },
+					{ "", "", "" }
+			};
+	for (size_t i = 0; i < sizeof(tests)/sizeof(tests[0]); i++)
+	{
+		char *res = ft_strjoin(tests[i].s1, tests[i].s2);
+		if (tests[i].expected == NULL)
+		{
+			CU_ASSERT_PTR_NULL(res);
+		}
+		else
+		{
+			CU_ASSERT_PTR_NOT_NULL(res);
+			if (res)
+			{
+				CU_ASSERT_STRING_EQUAL(res, tests[i].expected);
+				free(res);
+			}
+		}
+	}
+}
+
+int		main(void)
+{
+	CU_initialize_registry();
+
+	CU_pSuite suite = CU_add_suite("LibFT Testing", 0, 0);
+	CU_add_test(suite, "ft_atoi", test_ft_atoi);
+	CU_add_test(suite, "ft_memset full", test_ft_memset);
+	CU_add_test(suite, "ft_bzero full", test_ft_bzero);
+	CU_add_test(suite, "ft_calloc full", test_ft_calloc_full);
+	CU_add_test(suite, "ft_calloc return zero", test_ft_calloc_zero);
+	CU_add_test(suite, "ft_calloc overflow", test_ft_calloc_overflow);
+	CU_add_test(suite, "ft_strlen", test_ft_strlen);
+	CU_add_test(suite, "ft_strdup_copy_and_not_null", test_ft_strdup_copy_and_not_null);
+	CU_add_test(suite, "ft_strdup_different_pointer", test_ft_strdup_different_pointer);
+	CU_add_test(suite, "ft_strdup_empty_string", test_ft_strdup_empty_string);
+	CU_add_test(suite, "ft_isalpha", test_ft_isalpha);
+	CU_add_test(suite, "ft_isdigit", test_ft_isdigit);
+	CU_add_test(suite, "ft_isascii", test_ft_isascii);
+	CU_add_test(suite, "ft_isprint", test_ft_isprint);
+	CU_add_test(suite, "ft_isalnum", test_ft_isalnum);
+	CU_add_test(suite, "ft_memcpy", test_ft_memcpy);
+	CU_add_test(suite, "ft_memmove", test_ft_memmove);
+	CU_add_test(suite, "ft_strncpy_short_long_equal", test_ft_strncpy_short_long_equal);
+	CU_add_test(suite, "ft_memchr_found_not_found", test_ft_memchr_found_not_found);
+	CU_add_test(suite, "ft_memchr_zero_empty", test_ft_memchr_zero_empty);
+	CU_add_test(suite, "ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
+	CU_add_test(suite, "ft_memcmp_less_greater", test_ft_memcmp_less_greater);
+	CU_add_test(suite, "ft_strnstr", test_ft_strnstr);
+	CU_add_test(suite, "ft_strrchr", test_ft_strrchr);
+	CU_add_test(suite, "ft_strchr", test_ft_strchr);
+	CU_add_test(suite, "ft_tolower", test_ft_tolower);
+	CU_add_test(suite, "ft_toupper", test_ft_toupper);
+	CU_add_test(suite, "ft_strlcat", test_ft_strlcat);
+	CU_add_test(suite, "ft_strlcpy", test_ft_strlcpy);
+	CU_add_test(suite, "ft_substr", test_ft_substr);
+	CU_add_test(suite, "ft_strjoin", test_ft_strjoin);
+
+	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_run_tests();
+	CU_cleanup_registry();
+	return (0);
 }
