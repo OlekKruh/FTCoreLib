@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/30 21:25:27 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:21:37 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ typedef struct
 	const char *expected;
 }
 test_case_strjoin;
+typedef struct s_test
+{
+	const char *input;
+	const char *set;
+	const char *expected;
+}
+test_case_srtrim;
+
 
 void	test_ft_atoi(void)
 {
@@ -671,6 +679,36 @@ void	test_ft_strjoin(void)
 	}
 }
 
+void	test_ft_strtrim(void)
+{
+	test_case_srtrim tests[] =
+			{
+			{"  hello  ", " ", "hello"},
+			{"  hello world  ", " ", "hello world"},
+			{"\t\nhello\t\n", "\t\n", "hello"},
+			{"xxhelloxx", "x", "hello"},
+			{"abchelloabc", "abc", "hello"},
+			{"", " ", ""},
+			{NULL, " ", ""},
+			{"hello", NULL, ""},
+			{"aaa", "a", ""},
+			{"hello", "xyz", "hello"},
+			{NULL, NULL, ""}
+			};
+
+	for (int i = 0; i < sizeof(tests)/sizeof(test_case_srtrim); i++)
+	{
+		char *result = ft_strtrim(tests[i].input, tests[i].set);
+		if (tests[i].expected == NULL)
+		{
+			CU_ASSERT_PTR_NULL(result);
+		}
+		else
+			CU_ASSERT_STRING_EQUAL(result ? result : "", tests[i].expected);
+		free(result);
+	}
+}
+
 int		main(void)
 {
 	CU_initialize_registry();
@@ -707,6 +745,7 @@ int		main(void)
 	CU_add_test(suite, "ft_strlcpy", test_ft_strlcpy);
 	CU_add_test(suite, "ft_substr", test_ft_substr);
 	CU_add_test(suite, "ft_strjoin", test_ft_strjoin);
+	CU_add_test(suite, "ft_strtrim", test_ft_strtrim);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();

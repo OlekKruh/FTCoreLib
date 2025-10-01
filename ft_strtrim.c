@@ -22,7 +22,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	s1_len = ft_strlen(s1);
 	s1_id = 0;
-	while (s1[s1_id] && ft_strchr(set, s1[s1_id]))
+	while (s1[s1_id] && ft_strchr(set, (int)s1[s1_id]))
 		s1_id++;
 	while (s1_len > s1_id && ft_strchr(set, s1[s1_len - 1]))
 		s1_len--;

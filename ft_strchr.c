@@ -17,7 +17,7 @@ char	*ft_strchr(const char *str, int ch)
 	size_t	id;
 
 	id = 0;
-	while (str[id] != '0')
+	while (str[id] != '\0')
 	{
 		if (str[id] == (char)ch)
 			return ((char *)(str + id));
