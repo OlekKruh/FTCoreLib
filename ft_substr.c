@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:50:15 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/30 12:05:02 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/01 22:53:24 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	dest = malloc(sizeof(char) * (len + 1));
 	if (!dest)
 		return (NULL);
-	ft_strncpy(dest, s + start, len);
+	ft_memcpy(dest, s + start, len);
 	dest[len] = '\0';
 	return (dest);
 }

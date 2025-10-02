@@ -21,7 +21,6 @@ void	*ft_memchr(const void *src, int arg, size_t len)
 	id = 0;
 	ptr = (unsigned char *)src;
 	ch = (unsigned char)arg;
-
 	while (id < len)
 	{
 		if (ptr[id] == ch)

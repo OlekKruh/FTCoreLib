@@ -20,21 +20,18 @@ char	*ft_strnstr(const char *str, const char *substr, size_t len)
 	str_id = 0;
 	if (substr[0] == '\0' || str == substr)
 		return ((char *)str);
-	else if (!str || len == 0)
-		return (NULL);
-	while (str_id < len)
+	while (str_id < len && str[str_id])
 	{
 		sub_id = 0;
-		if (str[str_id] == substr[sub_id])
+		while (str_id + sub_id < len
+			&& str[str_id + sub_id]
+			&& substr[sub_id]
+			&& str[str_id + sub_id] == substr[sub_id])
 		{
-			while (str[str_id + sub_id] != '\0'
-				&& str[str_id + sub_id] == substr[sub_id])
-			{
-				sub_id++;
-			}
-			if (substr[sub_id] == '\0')
-				return ((char *)(str + str_id));
+			sub_id++;
 		}
+		if (substr[sub_id] == '\0')
+			return ((char *)(str + str_id));
 		str_id++;
 	}
 	return (NULL);
