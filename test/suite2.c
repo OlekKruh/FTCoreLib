@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:42:28 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/02 20:56:09 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/03 19:06:34 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,21 @@ typedef struct
 	const char *expected;
 }
 test_case_strjoin;
-typedef struct s_test
+typedef struct
 {
 	const char *input;
 	const char *set;
 	const char *expected;
 }
 test_case_srtrim;
+typedef struct
+{
+	const char *string;
+	const char separator;
+	const char **expected;
+}
+test_case_split;
+
 
 void	test_ft_substr(void)
 {
@@ -48,11 +56,15 @@ void	test_ft_substr(void)
 					{"Hello", 0, 5, "Hello"},
 					{NULL, 0, 0, NULL},
 			};
-	for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++) {
+	for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
+	{
 		char *res = ft_substr(tests[i].src, tests[i].start, tests[i].len);
-		if (tests[i].expected == NULL) {
+		if (tests[i].expected == NULL)
+		{
 			CU_ASSERT_PTR_NULL(res);
-		} else {
+		}
+		else
+		{
 			CU_ASSERT_STRING_EQUAL(res, tests[i].expected);
 			free(res);
 		}
@@ -140,6 +152,70 @@ void	test_ft_memcmp_less_greater(void)
 	CU_ASSERT_TRUE(ft_memcmp(str2, str3, 6) > 0);
 }
 
+void	test_ft_split(void)
+{
+	const char *expected0[] = {"Yer", "a", "wizard", "Harry.", NULL};
+	const char *expected1[] = {"I", "solemnly", "swear", "that", "I", "am",
+							   "up", "to", "no", "good,", NULL};
+	const char *expected2[] = {"IKnowKungFu", NULL};
+	const char *expected3[] = {"OpenAI", "rocks!", NULL};
+	const char *expected4[] = {"Hello", "world", NULL};
+	const char *expected5[] = {NULL};
+	const char *expected6[] = {NULL};
+	const char *expected7[] = {"NoSeparatorHere", NULL};
+	const char *expected8[] = {"A", "B", "C", "D", NULL};
+	const char *expected9[] = {"There", "is", "no", "spoon", NULL};
+	const char *expected10[] = {"Hello", "world", NULL};     // ведущий разделитель
+	const char *expected11[] = {"Hello", NULL};              // разделитель в конце
+	const char *expected12[] = {NULL};                       // строка = один разделитель
+	const char *expected13[] = {"Hello world", NULL};        // без разделителя ','
+	const char *expected14[] = {"HelloHelloHello", NULL};    // повтор, без разделителя
+
+	test_case_split tests[] =
+			{
+					{"Yer,a,wizard,Harry.", ',', expected0},
+					{"I  solemnly  swear  that I am up   to no    good,", ' ', expected1},
+					{"IKnowKungFu", ' ', expected2},
+					{"  OpenAI  rocks! ", ' ', expected3},
+					{"Hello,world", ',', expected4},
+					{",,,", ',', expected5},
+					{"", ' ', expected6},
+					{"NoSeparatorHere", '-', expected7},
+					{"A--B---C-----D", '-', expected8},
+					{"There.is.no.spoon.", '.', expected9},
+					{",Hello,world", ',', expected10},
+					{"Hello,", ',', expected11},
+					{",", ',', expected12},
+					{"Hello world", ',', expected13},
+					{"HelloHelloHello", ',', expected14},
+			};
+
+	for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
+	{
+		char **res = ft_split(tests[i].string, tests[i].separator);
+
+		if (tests[i].expected[0] == NULL) {
+			// Ожидается пустой результат — res должно быть NULL
+			CU_ASSERT_PTR_NULL(res);
+		} else {
+			// Ожидается непустой результат — res не должен быть NULL
+			CU_ASSERT_PTR_NOT_NULL(res);
+
+			size_t j = 0;
+			while (tests[i].expected[j] != NULL) {
+				CU_ASSERT_PTR_NOT_NULL(res[j]);
+				CU_ASSERT_STRING_EQUAL(res[j], tests[i].expected[j]);
+				j++;
+			}
+			CU_ASSERT_PTR_NULL(res[j]);
+
+			for (size_t k = 0; k < j; k++)
+				free(res[k]);
+			free(res);
+		}
+	}
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -148,4 +224,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_strtrim", test_ft_strtrim);
 	CU_add_test(suite, "ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
 	CU_add_test(suite, "ft_memcmp_less_greater", test_ft_memcmp_less_greater);
+	CU_add_test(suite, "ft_split", test_ft_split);
 }
