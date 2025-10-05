@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/05 17:17:43 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:56:54 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdint.h>
+# include <unistd.h>
 
 int		ft_atoi(const char *src);
 void	ft_bzero(void *dest, size_t len);
@@ -32,6 +33,7 @@ int		ft_memcmp(const void *str1, const void *str2, size_t len);
 void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t size);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memset(void *dest, int ch, size_t len);
+void	ft_putchar_fd(char c, int fd);
 char	**ft_split(const char *src, char spl);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_strdup(const char *src);

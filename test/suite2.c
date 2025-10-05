@@ -259,6 +259,26 @@ void	test_ft_striteri(void)
 	CU_ASSERT_STRING_EQUAL(str, expected);
 }
 
+void	test_ft_putchar_fd(void)
+{
+	int fd[2];
+	char c = 'X';
+	char read_c = 0;
+
+	// Создаём pipe
+	CU_ASSERT_EQUAL(pipe(fd), 0);
+
+	// Пишем символ в write-end пайпа
+	ft_putchar_fd(c, fd[1]);
+	close(fd[1]); // Закрываем write-end
+
+	// Читаем символ из read-end
+	CU_ASSERT_EQUAL(read(fd[0], &read_c, 1), 1);
+	CU_ASSERT_EQUAL(read_c, c);
+
+	close(fd[0]);
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -271,4 +291,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_itoa", test_ft_itoa);
 	CU_add_test(suite, "ft_strmapi", test_ft_strmapi);
 	CU_add_test(suite, "ft_striteri", test_ft_striteri);
+	CU_add_test(suite, "ft_putchar_fd", test_ft_putchar_fd);
 }

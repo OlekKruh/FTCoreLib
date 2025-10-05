@@ -41,7 +41,8 @@ add_library(libft STATIC
 		ft_split.c
 		ft_itoa.c
 		ft_strmapi.c
-		ft_striteri.c)
+		ft_striteri.c
+		ft_putchar_fd.c)
 
 add_executable(test_runner
 		test/test_main.c
