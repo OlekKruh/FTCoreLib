@@ -26,6 +26,7 @@ int		ft_isalpha(int arg);
 int		ft_isascii(int arg);
 int		ft_isdigit(int dig);
 int		ft_isprint(int arg);
+char	*ft_itoa(int fig);
 void	*ft_memchr(const void *src, int arg, size_t len);
 int		ft_memcmp(const void *str1, const void *str2, size_t len);
 void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t size);

@@ -38,7 +38,8 @@ add_library(libft STATIC
 		ft_strjoin.c
 		ft_strtrim.c
 		ft_strncmp.c
-		ft_split.c)
+		ft_split.c
+		ft_itoa.c)
 
 add_executable(test_runner
 		test/test_main.c

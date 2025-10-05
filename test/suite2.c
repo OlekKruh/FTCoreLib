@@ -42,6 +42,12 @@ typedef struct
 	const char **expected;
 }
 test_case_split;
+typedef struct
+{
+	int input;
+	const char *expected;
+}
+itoa_test_case;
 
 
 void	test_ft_substr(void)
@@ -199,6 +205,33 @@ void	test_ft_split(void)
 	}
 }
 
+void	test_ft_itoa(void)
+{
+	itoa_test_case tests[] =
+			{
+			{0, "0"},
+			{123, "123"},
+			{-123, "-123"},
+			{INT_MIN, "-2147483648"},
+			{INT_MAX, "2147483647"},
+			{42, "42"},
+			{-42, "-42"}
+			};
+
+	size_t n_tests = sizeof(tests) / sizeof(tests[0]);
+
+	for (size_t i = 0; i < n_tests; i++)
+	{
+		char *result = ft_itoa(tests[i].input);
+		CU_ASSERT_PTR_NOT_NULL(result);
+		if (result)
+		{
+			CU_ASSERT_STRING_EQUAL(result, tests[i].expected);
+			free(result);
+		}
+	}
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -208,4 +241,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_memcmp_equal_not_equal_zero", test_ft_memcmp_equal_not_equal_zero);
 	CU_add_test(suite, "ft_memcmp_less_greater", test_ft_memcmp_less_greater);
 	CU_add_test(suite, "ft_split", test_ft_split);
+	CU_add_test(suite, "ft_itoa", test_ft_itoa);
 }
