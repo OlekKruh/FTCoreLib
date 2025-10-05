@@ -6,26 +6,36 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 19:07:09 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/04 01:58:42 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:33:29 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+size_t	split_loop(const char *src, char spl, char **result, size_t res_id);
+
 char	**ft_split(const char *src, char spl)
 {
-	size_t		res_id;
-	char		**result;
-	const char	*spl_ptr;
-	const char	*start;
+	size_t	res_id;
+	char	**result;
 
-	if (!src || *src == '\0')
-		return (NULL);
 	res_id = 0;
-	start = src;
+	if (!src || !spl)
+		return (NULL);
 	result = malloc((ft_strlen(src) + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
+	res_id = split_loop(src, spl, result, res_id);
+	result[res_id] = NULL;
+	return (result);
+}
+
+size_t	split_loop(const char *src, char spl, char **result, size_t res_id)
+{
+	const char	*spl_ptr;
+	const char	*start;
+
+	start = src;
 	while (*start)
 	{
 		spl_ptr = ft_strchr(start, spl);
@@ -38,8 +48,5 @@ char	**ft_split(const char *src, char spl)
 		else
 			start = spl_ptr;
 	}
-	result[res_id] = NULL;
-	return (result);
+	return (res_id);
 }
-//	if (res_id == 0)
-//		return (free(result), NULL);

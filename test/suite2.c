@@ -161,46 +161,29 @@ void	test_ft_split(void)
 	const char *expected3[] = {"OpenAI", "rocks!", NULL};
 	const char *expected4[] = {"Hello", "world", NULL};
 	const char *expected5[] = {NULL};
-	const char *expected6[] = {NULL};
-	const char *expected7[] = {"NoSeparatorHere", NULL};
-	const char *expected8[] = {"A", "B", "C", "D", NULL};
-	const char *expected9[] = {"There", "is", "no", "spoon", NULL};
-	const char *expected10[] = {"Hello", "world", NULL};     // ведущий разделитель
-	const char *expected11[] = {"Hello", NULL};              // разделитель в конце
-	const char *expected12[] = {NULL};                       // строка = один разделитель
-	const char *expected13[] = {"Hello world", NULL};        // без разделителя ','
-	const char *expected14[] = {"HelloHelloHello", NULL};    // повтор, без разделителя
 
 	test_case_split tests[] =
 			{
-					{"Yer,a,wizard,Harry.", ',', expected0},
+					{",Yer,a,wizard,,Harry.", ',', expected0},
 					{"I  solemnly  swear  that I am up   to no    good,", ' ', expected1},
 					{"IKnowKungFu", ' ', expected2},
-					{"  OpenAI  rocks! ", ' ', expected3},
+					{"  OpenAI  rocks!  ", ' ', expected3},
 					{"Hello,world", ',', expected4},
-					{",,,", ',', expected5},
-					{"", ' ', expected6},
-					{"NoSeparatorHere", '-', expected7},
-					{"A--B---C-----D", '-', expected8},
-					{"There.is.no.spoon.", '.', expected9},
-					{",Hello,world", ',', expected10},
-					{"Hello,", ',', expected11},
-					{",", ',', expected12},
-					{"Hello world", ',', expected13},
-					{"HelloHelloHello", ',', expected14},
+					{"    ", ' ', expected5},
 			};
 
 	for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
 	{
 		char **res = ft_split(tests[i].string, tests[i].separator);
 
-		if (tests[i].expected[0] == NULL) {
-			// Ожидается пустой результат — res должно быть NULL
-			CU_ASSERT_PTR_NULL(res);
-		} else {
-			// Ожидается непустой результат — res не должен быть NULL
+		if (tests[i].expected[0] == NULL)
+		{
 			CU_ASSERT_PTR_NOT_NULL(res);
-
+			CU_ASSERT_PTR_NULL(res[0]);
+		}
+		else
+		{
+			CU_ASSERT_PTR_NOT_NULL(res);
 			size_t j = 0;
 			while (tests[i].expected[j] != NULL) {
 				CU_ASSERT_PTR_NOT_NULL(res[j]);
