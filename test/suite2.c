@@ -232,6 +232,20 @@ void	test_ft_itoa(void)
 	}
 }
 
+char	test_func(unsigned int i, char c)
+{
+	return c + i;
+}
+
+void	test_ft_strmapi(void)
+{
+	char *str = "abcd";
+	char *expected = "aceg"; // 'a'+0, 'b'+1, 'c'+2, 'd'+3
+	char *result = ft_strmapi(str, test_func);
+	CU_ASSERT_STRING_EQUAL(result, expected);
+	free(result);
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -242,4 +256,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_memcmp_less_greater", test_ft_memcmp_less_greater);
 	CU_add_test(suite, "ft_split", test_ft_split);
 	CU_add_test(suite, "ft_itoa", test_ft_itoa);
+	CU_add_test(suite, "ft_strmapi", test_ft_strmapi);
 }
