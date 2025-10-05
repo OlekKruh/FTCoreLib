@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:42:28 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/03 19:06:34 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:34:51 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct
 	const char *expected;
 }
 itoa_test_case;
-
 
 void	test_ft_substr(void)
 {
@@ -246,6 +245,20 @@ void	test_ft_strmapi(void)
 	free(result);
 }
 
+void	test_func2(unsigned int i, char *c)
+{
+	if (*c >= 'a' && *c <= 'z')
+		*c = *c + i;
+}
+
+void	test_ft_striteri(void)
+{
+	char str[5] = "abcd";
+	char expected[] = "aceg"; // 'a'+0, 'b'+1, 'c'+2, 'd'+3
+	ft_striteri(str, test_func2);
+	CU_ASSERT_STRING_EQUAL(str, expected);
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -257,4 +270,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_split", test_ft_split);
 	CU_add_test(suite, "ft_itoa", test_ft_itoa);
 	CU_add_test(suite, "ft_strmapi", test_ft_strmapi);
+	CU_add_test(suite, "ft_striteri", test_ft_striteri);
 }
