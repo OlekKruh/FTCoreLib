@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/05 20:56:54 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:16:46 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t size);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memset(void *dest, int ch, size_t len);
 void	ft_putchar_fd(char c, int fd);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(const char *src, char spl);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_strdup(const char *src);

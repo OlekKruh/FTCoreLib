@@ -48,6 +48,12 @@ typedef struct
 	const char *expected;
 }
 itoa_test_case;
+typedef struct
+{
+	int value;
+	const char *expected_str;
+}
+putnbt_test_case;
 
 void	test_ft_substr(void)
 {
@@ -279,6 +285,39 @@ void	test_ft_putchar_fd(void)
 	close(fd[0]);
 }
 
+void	test_ft_putnbr_fd_various(void)
+{
+	putnbt_test_case tests[] =
+			{
+			{0, "0"},
+			{42, "42"},
+			{-42, "-42"},
+			{12345, "12345"},
+			{-12345, "-12345"},
+			{INT_MAX, "2147483647"},
+			{INT_MIN, "-2147483648"}
+			};
+	int num_tests = sizeof(tests) / sizeof(tests[0]);
+
+	for (int i = 0; i < num_tests; ++i)
+	{
+		int fd[2];
+		CU_ASSERT_EQUAL(pipe(fd), 0);
+
+		ft_putnbr_fd(tests[i].value, fd[1]);
+		close(fd[1]);
+
+		char buffer[32] = {0};
+		ssize_t bytes = read(fd[0], buffer, sizeof(buffer) - 1);
+		close(fd[0]);
+
+		CU_ASSERT(bytes > 0);
+		buffer[bytes] = '\0';
+
+		CU_ASSERT_STRING_EQUAL(buffer, tests[i].expected_str);
+	}
+}
+
 void	register_suite2_tests(void)
 {
 	CU_pSuite suite = CU_add_suite("Suite2", 0, 0);
@@ -292,4 +331,5 @@ void	register_suite2_tests(void)
 	CU_add_test(suite, "ft_strmapi", test_ft_strmapi);
 	CU_add_test(suite, "ft_striteri", test_ft_striteri);
 	CU_add_test(suite, "ft_putchar_fd", test_ft_putchar_fd);
+	CU_add_test(suite, "ft_putnbr_fd_various", test_ft_putnbr_fd_various);
 }
