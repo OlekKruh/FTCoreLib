@@ -131,7 +131,7 @@ void	test_ft_strtrim(void)
 					{NULL, NULL, ""}
 			};
 
-	for (int i = 0; i < sizeof(tests)/sizeof(test_case_srtrim); i++)
+	for (size_t i = 0; i < sizeof(tests)/sizeof(test_case_srtrim); i++)
 	{
 		char *result = ft_strtrim(tests[i].input, tests[i].set);
 		if (tests[i].expected == NULL)
