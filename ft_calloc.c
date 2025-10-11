@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/09/26 13:20:15 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/09 21:22:16 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t quant, size_t len)
 	size_t	size;
 
 	if (quant == 0 || len == 0)
-		return (NULL);
+		return (malloc(0));
 	if (quant > SIZE_MAX / len)
 		return (NULL);
 	size = quant * len;

@@ -6,13 +6,14 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 19:07:09 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/05 14:51:51 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:24:54 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t	split_loop(const char *src, char spl, char **result, size_t res_id);
+size_t	sub_str_count(const char *str, char spl);
 
 char	**ft_split(const char *src, char spl)
 {
@@ -20,9 +21,9 @@ char	**ft_split(const char *src, char spl)
 	char	**result;
 
 	res_id = 0;
-	if (!src || !spl)
+	if (!src)
 		return (NULL);
-	result = malloc((ft_strlen(src) + 1) * sizeof(char *));
+	result = malloc((sub_str_count(src, spl) + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
 	res_id = split_loop(src, spl, result, res_id);
@@ -49,4 +50,25 @@ size_t	split_loop(const char *src, char spl, char **result, size_t res_id)
 			start = spl_ptr;
 	}
 	return (res_id);
+}
+
+size_t	sub_str_count(const char *str, char spl)
+{
+	size_t	ssc;
+	int		on_sub_str;
+
+	ssc = 0;
+	on_sub_str = 0;
+	while (*str)
+	{
+		if (*str != spl && on_sub_str == 0)
+		{
+			on_sub_str = 1;
+			ssc++;
+		}
+		else if (*str == spl)
+			on_sub_str = 0;
+		str++;
+	}
+	return (ssc);
 }

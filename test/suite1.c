@@ -548,11 +548,21 @@ void	test_ft_calloc_full(void)
 	free(ptr2);
 }
 
-void	test_ft_calloc_zero(void)
+void test_ft_calloc_zero(void)
 {
-	CU_ASSERT_PTR_NULL(ft_calloc(0, 10));
-	CU_ASSERT_PTR_NULL(ft_calloc(10, 0));
-	CU_ASSERT_PTR_NULL(ft_calloc(0, 0));
+	void *ptr;
+
+	ptr = ft_calloc(0, 10);
+	CU_ASSERT_PTR_NOT_NULL(ptr);
+	free(ptr);
+
+	ptr = ft_calloc(10, 0);
+	CU_ASSERT_PTR_NOT_NULL(ptr);
+	free(ptr);
+
+	ptr = ft_calloc(0, 0);
+	CU_ASSERT_PTR_NOT_NULL(ptr);
+	free(ptr);
 }
 
 void	test_ft_calloc_overflow()

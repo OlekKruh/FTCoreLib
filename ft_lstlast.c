@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 22:09:03 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/09 21:11:51 by okruhlia         ###   ########.fr       */
+/*   Created: 2025/10/10 11:22:10 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/10/10 11:27:14 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t len)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	id;
+	t_list	*corent_pos;
 
-	id = 0;
-	while (id < len)
-	{
-		((unsigned char *)dest)[id] = ((unsigned char *)src)[id];
-		id++;
-	}
-	return (dest);
+	if (!lst)
+		return (NULL);
+	corent_pos = lst;
+	while (corent_pos -> next)
+		corent_pos = corent_pos -> next;
+	return (corent_pos);
 }

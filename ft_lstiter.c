@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 22:09:03 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/09 21:11:51 by okruhlia         ###   ########.fr       */
+/*   Created: 2025/10/11 18:56:50 by okruhlia          #+#    #+#             */
+/*   Updated: 2025/10/11 19:07:43 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t len)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	size_t	id;
+	t_list	*cor_pos;
 
-	id = 0;
-	while (id < len)
+	cor_pos = lst;
+	while (cor_pos)
 	{
-		((unsigned char *)dest)[id] = ((unsigned char *)src)[id];
-		id++;
+		f(cor_pos->content);
+		cor_pos = cor_pos->next;
 	}
-	return (dest);
 }

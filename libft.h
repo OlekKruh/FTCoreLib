@@ -6,7 +6,7 @@
 /*   By: okruhlia <okruhlia@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:19:47 by okruhlia          #+#    #+#             */
-/*   Updated: 2025/10/06 14:16:46 by okruhlia         ###   ########.fr       */
+/*   Updated: 2025/10/11 19:42:37 by okruhlia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <stdint.h>
 # include <unistd.h>
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 int		ft_atoi(const char *src);
 void	ft_bzero(void *dest, size_t len);
 void	*ft_calloc(size_t quant, size_t len);
@@ -30,13 +36,21 @@ int		ft_isprint(int arg);
 char	*ft_itoa(int fig);
 void	*ft_memchr(const void *src, int arg, size_t len);
 int		ft_memcmp(const void *str1, const void *str2, size_t len);
-void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t size);
+void	*ft_memcpy(void *dest, const void *src, size_t size);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memset(void *dest, int ch, size_t len);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstnew(void *content);
+int		ft_lstsize(t_list *lst);
 char	**ft_split(const char *src, char spl);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_strdup(const char *src);
