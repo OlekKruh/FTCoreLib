@@ -75,7 +75,7 @@ clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME) $(TEST_OBJS) test_exec
+	$(RM) $(NAME) $(TEST_OBJS) $(OBJS_B) test_exec
 
 re : fclean all
 
